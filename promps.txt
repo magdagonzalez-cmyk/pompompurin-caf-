@@ -1,0 +1,66 @@
+
+
+1. ¿Cuál será el nombre de tu aplicación?
+    El nombre de mi aplicación web sera Pompompurin Café
+2. ¿De qué tratará?
+    La aplicación tratara de una cafeteria virtual, donde
+    puedas hacer los pedidos de lo que tu quieras comer 
+    en la cafetería.
+3. ¿Cuáles serán las tres páginas y qué información mostrará cada una?
+    En realidad tengo mas de 3 páginas las cuales son:
+    base.html:Mostrara la base de todo el rpoyecto
+    contacto.html: Mostrara la zona de contacto y como puedes comunicarte con la cafetería
+    cuenta.html:Que hay dentro de la cuenta, siendo tu historial y todo eso.
+    index.html: Se ve el inicio de la página
+    login.html:Aquì se encuentra la zona del inicio de sesion o la opción de registrarte.
+    menu.html: Aqui podemos ver el menu de los postres y otras cosas.
+    registro.html: Aqui en caso de no tener cuenta puedes registrar una cuenta.
+    sobre.html: donde hablamos sobre la cafeteria.
+4. ¿Qué lista de datos presentarás?
+
+1- Mándame el diseño del sitio web o aplicación web como si
+fuera una cafetería virtual de pompompurin donde se pueden 
+ver los precios y cosas así, como tipo una compra virtual, 
+pero con tematiuca de pompompurin pero solo de comida de
+pompompurin
+
+2- Ayudame a generar una aplicación web con Python, Flask,
+ HTML e CSS, ya que quiero hacerlo tipo cafeteria virtual, 
+ donde la persona vea el catalogo de comida que hay en la 
+ cafeteria con tematica de pompompurin, por lo cual necesito 
+ que sigfas los siguientes requisitos. 
+ 1-Python y Flask. 
+ 2-Crear al menos tres rutas utilizando @app.route, 
+ incluida la ruta de inicio/. 
+ 3-Crear tres páginas HTML dentro de la carpeta templates. 
+ 4-Incorporar un menú de navegación con enlaces entre las 
+ páginas. 
+ 5-Crear en Python una lista con al menos cuatro elementos 
+ relacionados con la temática. Cada elemento debe contener 
+ tres datos, por ejemplo: nombre, categoría y descripción. 
+ 6-Enviar los datos desde Python a una página utilizando
+  render_template(). 
+ 7-Mostrar la información utilizando Jinja, incluyendo 
+  variables {{ }} y un ciclo {% for %}. 
+ 8-Incorporar estilos CSS en static/css/styles.css.
+
+3-Sigue el diseño de la foto adjunta que te mande, 
+  porfavor y mandame las imagenes de ese diseño para colocarlas 
+  en el sitio web, porque no quiero hacerlo con emojis
+
+4- Me gusta cómo quedó, pero quiero que generes una zona en 
+la cual se pueda iniciar sesión para que salga tu cuenta y tus 
+pedidos, osea que exista un boton con la opcion "iniciar sesion"
+y en caso de que no tenga cuenta se pueda registrar y asi la
+persona entra a su cuenta y puede ver sus pedidos, pero que 
+tambien pueda ver la aplicación sin la cuenta, que pida la 
+cuenta cuando la persona agregue cosas al carrito y quiera
+comprarlo
+5- Ahora me gustaría añadirle la opción de búsqueda al sitio web
+asi las pertsonas pueden buscar el plato que ellos deseen.
+
+6- Ahora quiero que agregues una opción de Sistema de
+"Favoritos" (Lista de deseos),Reseñas y calificación con 
+huellitas, Sistema de puntos / "Huellitas de Fidelidad", 
+Selector de cantidad (+ / -) en el carrito y Cupones de 
+descuento temáticos.

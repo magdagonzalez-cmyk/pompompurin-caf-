@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Mi Cuenta y Pedidos - Pompompurin Café{% endblock %}
+{% block content %}
+<main class="main-wrapper page-spacing">
+    <div class="cafe-board single-column">
+        <div class="section-header">
+            <img src="{{ url_for('static', filename='images/logo_pompom.png') }}" alt="Perfil" class="mini-icon">
+            <h2>Mi Cuenta</h2>
+            <div class="header-line"></div>
+            <a href="{{ url_for('logout') }}" class="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+            </a>
+        </div>
+        <div class="profile-banner">
+            <img src="{{ url_for('static', filename='images/carrito_taza.png') }}" alt="Avatar Pompompurin" class="profile-avatar">
+            <div class="profile-details">
+                <span class="product-category">Cliente VIP del Café</span>
+                <h3>¡Hola, {{ user.nombre }}!</h3>
+                <p><i class="fa-solid fa-envelope"></i> {{ user.email }}</p>
+                <p><i class="fa-solid fa-bag-shopping"></i> Total de pedidos realizados: <strong>{{ pedidos|length }}</strong></p>
+            </div>
+            <div class="profile-actions">
+                <a href="{{ url_for('inicio') }}" class="btn-agregar">
+                    <i class="fa-solid fa-utensils"></i> Seguir pidiendo
+                </a>
+            </div>
+        </div>
+        <div class="section-header" style="margin-top: 2rem;">
+            <img src="{{ url_for('static', filename='images/pudin.png') }}" alt="Pedidos" class="mini-icon">
+            <h2>Historial de Mis Pedidos</h2>
+            <div class="header-line"></div>
+            <i class="fa-solid fa-paw paw-accent"></i>
+        </div>
+        {% if pedidos|length == 0 %}
+        <div class="empty-orders-box">
+            <p class="empty-title">Aún no has realizado ningún pedido.</p>
+            <p class="empty-subtitle">Explora nuestro menú y agrega tus postres favoritos de Pompompurin.</p>
+            <a href="{{ url_for('inicio') }}" class="btn-checkout" style="max-width: 260px; margin: 1rem auto 0 auto;">
+                <i class="fa-solid fa-mug-hot"></i> Ir al Menú
+            </a>
+        </div>
+        {% else %}
+        <div class="orders-grid">
+            {% for pedido in pedidos %}
+            <article class="order-card">
+                <div class="order-card-header">
+                    <div>
+                        <span class="order-number">{{ pedido.numero }}</span>
+                        <span class="order-date"><i class="fa-regular fa-calendar"></i> {{ pedido.fecha }}</span>
+                    </div>
+                    <span class="order-status">
+                        <i class="fa-solid fa-circle-check"></i> {{ pedido.estado }}
+                    </span>
+                </div>
+                <div class="order-card-body">
+                    <p class="order-items-label">Platillos incluidos:</p>
+                    <ul class="order-items-list">
+                        {% for platillo in pedido['items'] %}
+                        <li><i class="fa-solid fa-paw"></i> {{ platillo }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="order-card-footer">
+                    <span>Total pagado:</span>
+                    <strong>${{ "%.2f"|format(pedido.total) }}</strong>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Pompompurin Café{% endblock %}
+
+{% block content %}
+<!-- Banner Principal -->
+<section class="hero-banner">
+    <img src="{{ url_for('static', filename='images/banner_cafe.png') }}" alt="Bienvenido a Pompompurin Café" class="hero-img">
+</section>
+
+<!-- Contenedor Principal: Catálogo + Carrito -->
+<main class="main-wrapper">
+    <div class="cafe-board">
+        <!-- Columna Izquierda: Nuestro Menú -->
+        <section class="menu-section" id="catalogo">
+            <div class="section-header">
+                <img src="{{ url_for('static', filename='images/pudin.png') }}" alt="Icono Pudín" class="mini-icon">
+                <h2>Nuestro Menú</h2>
+                <div class="header-line"></div>
+                <i class="fa-solid fa-paw paw-accent"></i>
+            </div>
+
+            <!-- Barra de búsqueda de platillos en el catálogo -->
+            <form action="{{ url_for('inicio') }}#catalogo" method="GET" class="menu-search-bar">
+                <div class="search-input-group">
+                    <i class="fa-solid fa-magnifying-glass search-icon-left"></i>
+                    <input type="text" name="q" value="{{ consulta }}" placeholder="Busca tu platillo favorito (ej. pudín, panqueques, chocolate, donut)...">
+                    {% if consulta %}
+                    <a href="{{ url_for('inicio') }}#catalogo" class="clear-search-btn" title="Limpiar búsqueda">
+                        <i class="fa-solid fa-xmark"></i> Limpiar
+                    </a>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn-search-submit">Buscar</button>
+            </form>
+
+            {% if consulta %}
+            <p class="search-results-info">
+                Mostrando <strong>{{ productos|length }}</strong> resultado(s) para: <span>"{{ consulta }}"</span>
+            </p>
+            {% endif %}
+
+            {% if productos|length == 0 %}
+            <div class="no-results-box">
+                <img src="{{ url_for('static', filename='images/carrito_taza.png') }}" alt="Sin resultados" class="no-results-img">
+                <h3>No encontramos platillos con "{{ consulta }}"</h3>
+                <p>Intenta con otro término como <em>Pudín</em>, <em>Roll Cake</em>, <em>Galletas</em> o mira todo nuestro menú.</p>
+                <a href="{{ url_for('inicio') }}#catalogo" class="btn-agregar" style="max-width: 240px; margin: 1rem auto 0 auto;">
+                    <i class="fa-solid fa-rotate-left"></i> Ver todos los platillos
+                </a>
+            </div>
+            {% else %}
+            <div class="products-grid">
+                {% for producto in productos %}
+                <article class="product-card">
+                    <div class="product-img-box">
+                        <img src="{{ url_for('static', filename=producto.imagen) }}" alt="{{ producto.nombre }}">
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category">{{ producto.categoria }}</span>
+                        <h3>{{ producto.nombre }}</h3>
+                        <p class="product-desc">{{ producto.descripcion }}</p>
+                        <p class="product-price">${{ "%.2f"|format(producto.precio) }}</p>
+                        <form action="{{ url_for('agregar_carrito', producto_id=producto.id) }}" method="POST">
+                            <button type="submit" class="btn-agregar">
+                                <i class="fa-solid fa-cart-plus"></i> Agregar
+                            </button>
+                        </form>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </section>
+
+        <!-- Columna Derecha: Tu Carrito -->
+        <aside class="cart-section" id="carrito">
+            <div class="cart-header">
+                <div class="cart-title">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <h2>Tu Carrito</h2>
+                </div>
+                <i class="fa-solid fa-paw paw-light"></i>
+            </div>
+
+            <div class="cart-body">
+                {% if carrito|length == 0 %}
+                <div class="cart-empty">
+                    <img src="{{ url_for('static', filename='images/carrito_taza.png') }}" alt="Pompompurin en taza" class="cart-mascot">
+                    <p class="empty-title">Tu Carrito está vacío</p>
+                    <p class="empty-subtitle">¡Agrega tus platillos favoritos!</p>
+                </div>
+                {% else %}
+                <ul class="cart-items-list">
+                    {% for item in carrito %}
+                    <li class="cart-item">
+                        <img src="{{ url_for('static', filename=item.imagen) }}" alt="{{ item.nombre }}">
+                        <div class="cart-item-details">
+                            <strong>{{ item.nombre }}</strong>
+                            <span>${{ "%.2f"|format(item.precio) }}</span>
+                        </div>
+                        <form action="{{ url_for('eliminar_item', index=item.index) }}" method="POST" class="remove-item-form">
+                            <button type="submit" class="btn-remove-item" title="Quitar platillo">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+
+            <div class="cart-footer">
+                <div class="cart-total-row">
+                    <span>Total:</span>
+                    <span class="total-amount">${{ "%.2f"|format(total) }}</span>
+                </div>
+
+                {% if not usuario and carrito|length > 0 %}
+                <p class="guest-checkout-hint">
+                    <i class="fa-solid fa-lock"></i> Se te pedirá iniciar sesión o registrarte al finalizar.
+                </p>
+                {% endif %}
+
+                <form action="{{ url_for('comprar') }}" method="POST">
+                    <button type="submit" class="btn-checkout">
+                        <i class="fa-solid fa-cart-shopping"></i> Finalizar Compra
+                    </button>
+                </form>
+            </div>
+        </aside>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pompompurin Café{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Barra de navegación superior -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('inicio') }}" class="brand">
+                <img src="{{ url_for('static', filename='images/logo_pompom.png') }}" alt="Logo Pompompurin" class="brand-logo">
+                <div class="brand-text">
+                    <span>Pompompurin</span>
+                    <span>Café <i class="fa-solid fa-paw paw-icon"></i></span>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="{{ url_for('inicio') }}" class="nav-pill {% if pagina_activa == 'inicio' %}active{% endif %}">
+                    <i class="fa-solid fa-house"></i> Inicio
+                </a>
+                <a href="{{ url_for('menu') }}" class="nav-pill {% if pagina_activa == 'menu' %}active{% endif %}">
+                    <i class="fa-solid fa-utensils"></i> Menú
+                </a>
+                <a href="{{ url_for('sobre') }}" class="nav-pill {% if pagina_activa == 'sobre' %}active{% endif %}">
+                    <i class="fa-solid fa-star"></i> Sobre Pompompurin
+                </a>
+                <a href="{{ url_for('contacto') }}" class="nav-pill {% if pagina_activa == 'contacto' %}active{% endif %}">
+                    <i class="fa-solid fa-envelope"></i> Contacto
+                </a>
+            </nav>
+
+            <!-- Buscador rápido en la barra superior -->
+            <form action="{{ url_for('menu') }}" method="GET" class="header-search-form">
+                <input type="text" name="q" value="{{ busqueda_global }}" placeholder="Buscar postre..." aria-label="Buscar platillo">
+                <button type="submit" title="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+
+            <div class="header-actions">
+                {% if usuario %}
+                <a href="{{ url_for('cuenta') }}" class="nav-pill account-pill {% if pagina_activa == 'cuenta' %}active{% endif %}">
+                    <i class="fa-solid fa-user-check"></i> {{ usuario.nombre.split()[0] }} (Mis Pedidos)
+                </a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="nav-pill account-pill {% if pagina_activa == 'cuenta' %}active{% endif %}">
+                    <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+                </a>
+                {% endif %}
+
+                <a href="{{ url_for('inicio') }}#carrito" class="cart-badge-btn" title="Ver carrito">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="badge-count">{{ carrito_count }}</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mensajes de notificación -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-container">
+            {% for category, message in messages %}
+            <div class="flash-msg flash-{{ category }}">
+                <i class="fa-solid {% if category == 'success' %}fa-circle-check{% elif category == 'error' %}fa-circle-exclamation{% else %}fa-paw{% endif %}"></i>
+                <span>{{ message }}</span>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="footer-content">
+            <img src="{{ url_for('static', filename='images/footer_pompom.png') }}" alt="Pompompurin despedida" class="footer-mascot">
+            <p class="footer-text">¡Gracias por visitar nuestro café! <i class="fa-solid fa-heart"></i></p>
+            <div class="social-icons">
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Sobre Pompompurin - Pompompurin Café{% endblock %}
+{% block content %}
+<main class="main-wrapper page-spacing">
+    <div class="cafe-board single-column">
+        <div class="section-header">
+            <img src="{{ url_for('static', filename='images/logo_pompom.png') }}" alt="Logo" class="mini-icon">
+            <h2>Sobre Pompompurin y Nuestro Café</h2>
+            <div class="header-line"></div>
+            <i class="fa-solid fa-paw paw-accent"></i>
+        </div>
+        <div class="about-grid">
+            <div class="about-card">
+                <img src="{{ url_for('static', filename='images/carrito_taza.png') }}" alt="Pompompurin en taza" class="about-img">
+            </div>
+            <div class="about-text">
+                <h3>Un rincón dulce y acogedor</h3>
+                <p><strong>Pompompurin</strong> es un perrito golden retriever de carácter relajado y amigable, famoso por su inseparable boina marrón y su amor por los pudines de caramelo.</p>
+                <p>En <strong>Pompompurin Café</strong> recreamos su universo cálido en tonos pastel, crema y miel, ofreciendo postres artesanales inspirados en su estética tierna.</p>
+            </div>
+        </div>
+        <div class="section-header" style="margin-top: 2rem;">
+            <h2>Galería del Café</h2>
+            <div class="header-line"></div>
+        </div>
+        <div class="gallery-grid">
+            {% for item in galeria %}
+            <div class="gallery-card">
+                <span class="product-category">{{ item.categoria }}</span>
+                <h3>{{ item.titulo }}</h3>
+                <p>{{ item.descripcion }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

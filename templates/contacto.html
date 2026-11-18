@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Contacto - Pompompurin Café{% endblock %}
+{% block content %}
+<main class="main-wrapper page-spacing">
+    <div class="cafe-board single-column">
+        <div class="section-header">
+            <img src="{{ url_for('static', filename='images/galletas.png') }}" alt="Galleta" class="mini-icon">
+            <h2>Contáctanos y Reserva tu Mesa</h2>
+            <div class="header-line"></div>
+            <i class="fa-solid fa-paw paw-accent"></i>
+        </div>
+        {% if enviado %}
+        <div class="alert-success">
+            <i class="fa-solid fa-circle-check"></i> ¡Gracias, <strong>{{ nombre_usuario }}</strong>! Hemos recibido tu mensaje en Pompompurin Café.
+        </div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('contacto') }}" class="contact-form">
+            <div class="form-group">
+                <label for="nombre">Tu Nombre</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ej. Sofía Martínez">
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                <input type="email" id="correo" name="correo" required placeholder="sofia@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Mensaje o Pedido Especial</label>
+                <textarea id="mensaje" name="mensaje" rows="4" required placeholder="Cuéntanos qué postre te gustaría reservar..."></textarea>
+            </div>
+            <button type="submit" class="btn-checkout"><i class="fa-solid fa-paper-plane"></i> Enviar Mensaje</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

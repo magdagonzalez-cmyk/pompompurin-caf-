@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Registrarse - Pompompurin Café{% endblock %}
+{% block content %}
+<main class="main-wrapper page-spacing">
+    <div class="cafe-board single-column auth-board">
+        <div class="section-header">
+            <img src="{{ url_for('static', filename='images/pudin.png') }}" alt="Pudín" class="mini-icon">
+            <h2>Crear Cuenta Nueva</h2>
+            <div class="header-line"></div>
+            <i class="fa-solid fa-paw paw-accent"></i>
+        </div>
+        <p class="auth-subtitle">Regístrate gratis para guardar tus pedidos favoritos y revisar el estado de tus compras.</p>
+        <form method="POST" action="{{ url_for('registro') }}" class="contact-form">
+            <div class="form-group">
+                <label for="nombre"><i class="fa-solid fa-user"></i> Tu Nombre</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ej. Camila Rojas">
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="fa-solid fa-envelope"></i> Correo Electrónico</label>
+                <input type="email" id="email" name="email" required placeholder="camila@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-lock"></i> Contraseña</label>
+                <input type="password" id="password" name="password" required placeholder="Crea una contraseña">
+            </div>
+            <div class="form-group">
+                <label for="confirmar_password"><i class="fa-solid fa-shield-halved"></i> Confirmar Contraseña</label>
+                <input type="password" id="confirmar_password" name="confirmar_password" required placeholder="Repite tu contraseña">
+            </div>
+            <button type="submit" class="btn-checkout">
+                <i class="fa-solid fa-user-plus"></i> Registrarme y Entrar
+            </button>
+        </form>
+        <div class="auth-switch">
+            <p>¿Ya tienes una cuenta?</p>
+            <a href="{{ url_for('login') }}" class="nav-pill">
+                <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+            </a>
+        </div>
+    </div>
+</main>
+{% endblock %}
